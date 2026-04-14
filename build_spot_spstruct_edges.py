@@ -1,31 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-从 spot↔spot 邻接边（如 squidpy 导出的网格/半径图）构造最短路分层关系：
-  - 输出 spdist1 / spdist2 / ... / spdistK 各自的边 CSV（无自环、无重复）
-  - 可选：合并输出一份包含列 rel=spdist{k} 的 ALL CSV
-  - 可选：为输出边计算“公共邻居数”（# two-hop paths）作为结构特征
-
-适配你的规模：
-  N_spot≈3.6K、E≈1e4 时，K≤3 的全对最短路计算与筛选都很轻量。
-
-用法示例（按你的路径替换）：
-  python build_spot_spstruct_edges.py \
-    --neighbor-csv /mnt/c/jieguo/GSE144239/GSM4565825/hgt_graph/edges/edges_spot_neighbor_spot.csv \
-    --max-spd 3 \
-    --undirected \
-    --out-dir  /mnt/c/jieguo/GSE144239/GSM4565825/hgt_graph/edges/ \
-    --emit-all \
-    --add-common-neighbors
-
-输出：
-  edges_spot_spdist1.csv
-  edges_spot_spdist2.csv
-  edges_spot_spdist3.csv
-  （可选）edges_spot_spstruct.ALL.csv  # 含 rel / spd / weight / cn
-列定义：
-  src_spot_idx, dst_spot_idx[, weight, spd, rel, cn]
-"""
 
 import argparse
 from pathlib import Path
