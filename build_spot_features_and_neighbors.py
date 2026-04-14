@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-生成 Spot 节点特征（无 QC、无 cell-type 占比），命令行版本。
-
-新增：Spot 表达特征（Expression PCA）
-- 支持从 adata.raw / adata.X / adata.layers[xxx] 取表达矩阵
-- 典型 Visium：X 可能是筛过的 HVG(如 3500)，raw.X 常是全基因(如 36601)
-- 输出新增 block: X_sp_expr_pca
-
-输出：
-  1) spot_features.h5ad（分块放 obsm，带 feature_blocks）
-  2) spot_features.final.h5ad（X 拼接版）+ spot_features.final.columns.csv
-"""
 
 import os
 import argparse
