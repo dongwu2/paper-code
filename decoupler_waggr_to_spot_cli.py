@@ -5,26 +5,6 @@ decoupler 2.1.1 版：用 WAGGR 计算 PROGENy / DoRothEA 活性，并按 Tangra
 
 - 在单细胞层面算 pathway / TF 活性（WAGGR）
 - 利用 Tangram 的 cell×spot 概率矩阵，把活性聚合到 spot
-- 支持 WAGGR 的 times 参数：
-    * times = 1 ：无置换（快速版）
-    * times > 1：重复/置换版（更耗内存）
-
-内存优化：
-- 只保留 PROGENy + DoRothEA target 基因的并集，不对全基因矩阵跑 WAGGR
-- 将表达矩阵强制为 float32，以减半内存占用
-
-输出：
- 1) cell_pathway_tf_acts.h5ad
-    - obs: cells（按 Tangram 映射对齐后的细胞）
-    - obsm:
-        X_pathway_progeny14   (cells × pathways)
-        X_tfact_dorothea      (cells × TFs)
-
- 2) spot_pathway_tf_acts.h5ad
-    - obs: spots（按 Tangram 映射的 var_names 顺序）
-    - obsm:
-        X_sp_pathway_progeny14
-        X_sp_tfact_dorothea
 """
 
 import os
