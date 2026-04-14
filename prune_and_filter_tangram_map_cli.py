@@ -3,9 +3,6 @@
 """
 Prune low-confidence cell->spot edges from Tangram ad_map, then drop low-confidence cells
 using quantile-based voting; output all intermediate & final results.
-
-示例用法：
-
 python prune_and_filter_tangram_map_cli.py \
   --ad-map /mnt/c/jieguo/GSE111672/PDAC_A_tangram_P6/ad_map_cells_best.h5ad \
   --sp-h5ad /mnt/c/jieguo/GSE111672/PDAC_A/PDAC_A_ad_sp_ready.h5ad \
@@ -17,9 +14,6 @@ python prune_and_filter_tangram_map_cli.py \
   --per-type 1 \
   --vote-min 2 \
   --protect-maxp 0.80
-
-依赖：
-  pip install scanpy anndata numpy pandas scipy matplotlib
 """
 
 import os
@@ -43,15 +37,6 @@ def ensure_csr(x):
 
 
 def row_topk_prune_norm(T, topk, cumm, pmin):
-    """
-    每行：保留TopK→累计质量截断→行归一→去掉很小的边；返回 CSR。
-
-    参数：
-      T    : 任意稀疏/稠密矩阵，行是 cell，列是 spot
-      topk : 每行最多保留的非零个数
-      cumm : 在 TopK 内累计概率质量阈值（0~1）
-      pmin : 行归一后，< pmin 的边会被丢弃
-    """
     T = ensure_csr(T)
     n, m = T.shape
     indptr, indices, data = T.indptr, T.indices, T.data
