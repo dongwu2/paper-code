@@ -1,27 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-cellchat_lr_filter_edges.py
 
-Two modes:
-1) Default mode (pair gating): filter per-cell edges by (lr, cell_type) significance
-   - sender side: cell_type comes from sender cell (src_cell_idx)
-   - receiver side: cell_type comes from receiver cell (dst_cell_idx)
-   - Optional: --require-both-sides keeps LR that are significant on both sides
-   - Optional: --broad-frac / --broad-max culls ultra-broad LR
-
-2) LR-only mode (--lr-only): PURE LR-level filtering
-   - Build lr_keep from sender-sig / receiver-sig
-   - If --require-both-sides: intersection(sender_lr, receiver_lr)
-     else: union(sender_lr, receiver_lr)
-   - Filter RAW edges by lr in lr_keep ONLY (no celltype mapping)
-
-Key fix for your case:
-- significance columns are detected with EXACT match only (no substring),
-  and we removed single-letter 'p'/'q' to avoid mis-detecting 'cell_type'.
-- If sig file has no is_sig/pval/qval, we assume it's already thresholded,
-  so all rows are treated as significant.
-"""
 
 import argparse
 from pathlib import Path
